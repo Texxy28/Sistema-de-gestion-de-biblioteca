@@ -23,6 +23,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User userByEmail(String email) { 
+        return userRepository.findByEmail(email).orElse(null);
+    }
+
     public User newUser(User user) {
         return userRepository.insert(user);
     }

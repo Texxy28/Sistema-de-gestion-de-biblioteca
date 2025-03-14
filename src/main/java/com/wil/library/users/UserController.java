@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
-
 @RestController
 @RequestMapping(path = "api/v1/user")
 public class UserController {
@@ -28,6 +26,12 @@ public class UserController {
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<List<User>>(userService.allUsers(), HttpStatus.OK);
     }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<User> getByName(@PathVariable String name) {
+        return new ResponseEntity<User>(userService.userByEmail(name), HttpStatus.OK);
+    }
+    
     
     @PostMapping("/insert")
     public ResponseEntity<User> insertUser(@RequestBody User user) {
