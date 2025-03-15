@@ -2,6 +2,8 @@ package com.wil.library.jwt;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -18,8 +20,13 @@ public class JwtUtil {
     private static final String SECRET_KEY = "dasfas654das534f6sdzcv1x5z49asd86r4qw3e54w987eras35f4das6e87qwesad";
 
     public String getToken(User user) {
+        return getToken(new HashMap<>(), user);
+    }
+
+    public String getToken(Map<String, Object> extraClaims, User user) {
         return Jwts.builder()
-        .setSubject("admin")
+        .setClaims(extraClaims)
+        .setSubject(user.getEmail())
         .setIssuedAt(new Date())
         .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
         .signWith(getKey(), SignatureAlgorithm.HS256)

@@ -38,9 +38,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String resgister() {
-        
-        return "register";
+    public ResponseEntity<String> resgister(@RequestBody User user) {
+        userService.newUser(user);
+        String token = jwtUtil.getToken(user);
+        return new ResponseEntity<String>(token, HttpStatus.OK);
 
     }
 
